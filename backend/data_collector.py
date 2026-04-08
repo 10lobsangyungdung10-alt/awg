@@ -1,7 +1,7 @@
 """
 Real climate data collector for AWG ML training.
 
-Provides real monthly climate normals for ~45 global cities sourced from
+Provides real monthly climate normals for ~48 global cities sourced from
 meteorological records, covering all major climate zones. Water output labels
 are computed from the same physics formula used throughout the app.
 
@@ -15,6 +15,7 @@ Usage:
 import os
 import sys
 import argparse
+from datetime import datetime
 import numpy as np
 import pandas as pd
 import httpx
@@ -510,7 +511,6 @@ def collect_live_data(api_key: str, extra_cities: list[str] | None = None) -> pd
             lat = data.get("coord", {}).get("lat", 0)
             lon = data.get("coord", {}).get("lon", 0)
             country = data.get("sys", {}).get("country", "")
-            from datetime import datetime
             month = datetime.utcnow().month
             dp = dew_point(temp, rh)
             ah = absolute_humidity(temp, rh)
